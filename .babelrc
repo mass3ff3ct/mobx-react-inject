@@ -1,0 +1,4 @@
+{
+    "presets": ["react", "latest"],
+    "compact": false
+}

@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "sourceMap": false,
+        "module": "commonjs",
+        "removeComments": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "noImplicitUseStrict": true,
+        "noImplicitAny": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "jsx": "preserve",
+        "lib": ["dom", "es2015", "es2016", "es2017"]
+    },
+    "files": [
+      "src/index.ts",
+      "index.d.ts"
+    ]
+}
