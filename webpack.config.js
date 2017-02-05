@@ -2,12 +2,13 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  target: 'node',
   entry: {
     main: './src/index'
   },
   output: {
-    filename: './lib/index.js'
+    filename: './lib/index.js',
+    libraryTarget: "umd",
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
