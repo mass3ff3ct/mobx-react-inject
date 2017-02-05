@@ -1,12 +1,12 @@
 # mobx-react-inject
-Реализация простого внедрения store в react-приложения с использованием mobx
+Implementation of store injection to react component with mobx, typescript and decorator metadata
 
-## Установка
+## Installation
 ```bash
 npm i --save mobx-react-inject reflect-metadata 
 ```
 
-## Подготовка
+## Preparations
 ```json
 //tsconfig.json
 {
@@ -18,13 +18,13 @@ npm i --save mobx-react-inject reflect-metadata
   }
 }
 ```
-```javascript
+```ts
 //your-main-index.ts
 import "reflect-metadata"
 ```
-## Использование
+## Usage
 ### Подключение
-```javascript
+```ts
 import {StoreProvider} from "mobx-react-inject"
 
 class App extends React.Component<{}, void> {
@@ -36,8 +36,8 @@ class App extends React.Component<{}, void> {
   }
 }
 ```
-### Внедрение стора в компонент
-```javascript
+### Inject your store to component
+```ts
 class MyStore {
   public hello() {
     return "Hello"
@@ -55,8 +55,8 @@ class MyComponent extends React.Component<{}, void> {
   }
 }
 ```
-### Зависимости через конструктор стора
-```javascript
+### Store-to-store injection
+```ts
 class MyStoreDep {
   public word() {
     return "word"
@@ -71,8 +71,8 @@ class MyStore {
   }
 }
 ```
-### Вложенный StoreProvider.
-```javascript
+### Nested store providers
+```ts
 
 import {StoreConstructor, StoreInctance} from "mobx-react-inject"
 
@@ -92,27 +92,6 @@ class App extends React.Component<{}, void> {
          ...
       </StoreProvider>
     </StoreProvider>
-  }
-}
-```
-### Создание стора без добавления его в контейнер.
-```javascript
-
-import {StoreContainer, inject} from "mobx-react-inject"
-
-class MyComponent extends React.Component<{}, void> {
-  
-  @inject
-  private container: StoreContainer
-  
-  private myStore: MyStore
-  
-  componentWillMount() {
-    this.myStore = this.container.resolve(MyStore)
-  }
-  
-  render() {
-    return <div>{this.myStore.hello()}</div>
   }
 }
 ```
