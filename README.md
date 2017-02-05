@@ -23,7 +23,7 @@ npm i --save mobx-react-inject reflect-metadata
 import "reflect-metadata"
 ```
 ## Usage
-### Подключение
+### Create store provider
 ```ts
 import {StoreProvider} from "mobx-react-inject"
 
