@@ -74,11 +74,11 @@ class MyStore {
 ### Nested store providers
 ```ts
 
-import {StoreConstructor, StoreInctance} from "mobx-react-inject"
+import {StoreConstructor, StoreInstance} from "mobx-react-inject"
 
 class App extends React.Component<{}, void> {
   
-  private stores: Map<StoreConstructor, StoreInctance>
+  private stores: Map<StoreConstructor, StoreInstance>
   
   componentWillMount() {
     this.stores = new Map([
