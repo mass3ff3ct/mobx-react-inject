@@ -1,8 +1,12 @@
 import * as React from "react"
-import {StoreProviderProps} from "../index"
+import {StoreContainerInstance, StoreProviderProps} from "../index"
 import {StoreContainer} from "./StoreContainer"
 
 export class StoreProvider extends React.Component<StoreProviderProps, void> {
+
+    public static defaultProps = {
+        stores: [],
+    }
 
     public static contextTypes = {
         storeContainer: React.PropTypes.instanceOf(StoreContainer),
@@ -12,10 +16,12 @@ export class StoreProvider extends React.Component<StoreProviderProps, void> {
         storeContainer: React.PropTypes.instanceOf(StoreContainer).isRequired,
     }
 
-    private storeContainer: StoreContainer
+    private storeContainer: StoreContainerInstance
 
     public componentWillMount() {
-        this.storeContainer = new StoreContainer(this.props.stores || [], this.context.storeContainer)
+        this.storeContainer = this.props.storeContainer
+            ? this.props.storeContainer
+            : new StoreContainer(this.props.stores, this.context.storeContainer)
     }
 
     public getChildContext() {

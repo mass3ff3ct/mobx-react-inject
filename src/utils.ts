@@ -1,18 +1,19 @@
-import {ArgumentPositions, StoreConstructor} from "../index"
-import {StoreContainer} from "./StoreContainer"
+import {StoreConstructor, StoreContainerInstance} from "../index"
+
+export type ArgumentPositions = number[]
 
 const nativeExp = /\{\s*\[native code\]\s*\}/
 
 export const metadataKey = Symbol()
 
-export function resolveDependencies(
-    constructor: StoreConstructor,
-    container: StoreContainer,
-    parentDependencies = new Set<StoreConstructor>(),
+export function resolveDependencies<I>(
+    constructor: StoreConstructor<I>,
+    container: StoreContainerInstance,
+    parentDependencies = new Set<StoreConstructor<any>>(),
 ) {
     const argumentPositions: ArgumentPositions = Reflect.getOwnMetadata(metadataKey, constructor) || []
     const constructorDependencies: any[] = Reflect.getMetadata("design:paramtypes", constructor) || []
-    const resolvedDependencies: StoreConstructor[] = new Array(constructorDependencies.length)
+    const resolvedDependencies = new Array(constructorDependencies.length)
 
     parentDependencies.add(constructor)
 
@@ -40,7 +41,7 @@ export function throwError(message: string, target?: any) {
     throw new Error(`${message}.${target ? ` Error occurred in ${target.name}` : ""}`)
 }
 
-export function detectCircularDependencies(dependencies: Set<StoreConstructor>, constructor: StoreConstructor) {
+export function detectCircularDependencies<I>(dependencies: Set<StoreConstructor<any>>, constructor: StoreConstructor<I>) {
     if (dependencies.has(constructor)) {
         const chains = Array.from(dependencies.values()).map((dependency) => dependency.name).join(" -> ")
         throwError(`Circular dependencies are found in the following chain "${chains}"`)

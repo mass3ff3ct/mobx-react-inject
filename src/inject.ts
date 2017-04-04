@@ -1,7 +1,6 @@
 import * as React from "react"
-import {ArgumentPositions} from "../index"
 import {StoreContainer} from "./StoreContainer"
-import {checkValidDependency, metadataKey, throwError} from "./utils"
+import {ArgumentPositions, checkValidDependency, metadataKey, throwError} from "./utils"
 
 function propertyDecorator(target: any, propertyName: string) {
     if (!(target instanceof React.Component)) {
@@ -16,7 +15,7 @@ function propertyDecorator(target: any, propertyName: string) {
         targetConstructor.contextTypes = {}
     }
 
-    if (targetConstructor.contextTypes.stores == null) {
+    if (targetConstructor.contextTypes.storeContainer == null) {
         targetConstructor.contextTypes.storeContainer = React.PropTypes.instanceOf(StoreContainer).isRequired
     }
 

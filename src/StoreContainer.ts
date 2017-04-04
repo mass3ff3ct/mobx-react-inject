@@ -1,13 +1,13 @@
-import {StoreConstructor, StoreInstance} from "../index"
+import {StoreConstructor} from "../index"
 import {resolveDependencies} from "./utils"
 
 export class StoreContainer {
 
-    private map: Map<StoreConstructor, StoreInstance>
+    private map: Map<StoreConstructor<any>, any>
 
     private parentStore: StoreContainer
 
-    public constructor(stores: Iterable<[StoreConstructor, StoreInstance]> = [], parentStore?: StoreContainer) {
+    public constructor(stores: Iterable<[StoreConstructor<any>, any]> = [], parentStore?: StoreContainer) {
         this.map = new Map(stores)
         this.map.set(StoreContainer, this)
         if (parentStore) {
@@ -15,15 +15,15 @@ export class StoreContainer {
         }
     }
 
-    private hasInParentStore(constructor: StoreConstructor) {
+    private hasInParentStore(constructor: StoreConstructor<any>) {
         return this.parentStore && this.parentStore.has(constructor)
     }
 
-    public has(constructor: StoreConstructor) {
+    public has<I>(constructor: StoreConstructor<I>) {
         return this.map.has(constructor) || this.hasInParentStore(constructor)
     }
 
-    public get(constructor: StoreConstructor) {
+    public get<I>(constructor: StoreConstructor<I>) {
         if (this.hasInParentStore(constructor)) {
             return this.parentStore.get(constructor)
         }
@@ -35,8 +35,8 @@ export class StoreContainer {
         return this.map.get(constructor)
     }
 
-    public resolve(constructor: StoreConstructor) {
+    public resolve<I>(constructor: StoreConstructor<I>, ...args: any[]) {
         const resolvedDependencies = resolveDependencies(constructor, this).map((dependency) => this.get(dependency))
-        return new constructor(...resolvedDependencies)
+        return new constructor(...resolvedDependencies, ...args)
     }
 }

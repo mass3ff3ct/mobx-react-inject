@@ -11,6 +11,7 @@
     "no-var-requires": false,
     "no-namespace": false,
     "semicolon": [true, "never"],
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "array-type": false
   }
 }
