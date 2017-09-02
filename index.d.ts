@@ -21,4 +21,4 @@ export interface StoreProviderProps {
     stores?: Iterable<[StoreConstructor<any>, any]>
 }
 
-export class StoreProvider extends React.Component<StoreProviderProps, void> {}
+export class StoreProvider extends React.Component<StoreProviderProps, {}> {}
